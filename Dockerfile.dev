@@ -1,0 +1,11 @@
+#stage 1
+FROM rust:1.91 as builder
+WORKDIR /app
+
+# Install cargo-watch
+RUN cargo install cargo-watch
+
+# Copy source
+COPY . .
+
+CMD ["cargo", "watch", "-x", "run"]

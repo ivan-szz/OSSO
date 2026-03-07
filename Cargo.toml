@@ -1,6 +1,16 @@
 [package]
-name = "sso"
+name = "osso"
 version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+axum = "0.8.8"
+tower-http = { version = "0.6.8", features = ["trace"] }
+tokio = { version = "1.50.0", features = ["macros", "rt-multi-thread", "net"] }
+sqlx = { version = "0.8.6", features = ["runtime-tokio-rustls", "postgres", "macros"] }
+serde = { version = "1.0.228", features = ["derive"] }
+serde_json = "1.0.149"
+validator = { version = "0.20", features = ["derive"] }
+redis = { version = "1.0.4", features = ["tokio-comp", "sentinel"] }
+tracing = "0.1.44"
+tracing-subscriber = { version = "0.3.22", features = ["env-filter"] }

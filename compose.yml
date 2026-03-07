@@ -1,0 +1,37 @@
+services:
+  osso:
+    container_name: osso
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8080:8080"
+    environment:
+      DATABASE_URL: "postgres://user:password@db:5432/osso"
+      REDIS_URL: "redis://redis:6379"
+      RUST_LOG: "osso=debug,tower_http=debug"
+    volumes:
+      - .:/app
+      - target:/app/target
+    command: cargo watch -w src -x run
+
+  db:
+    image: postgres:18.1
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: osso
+    volumes:
+      - pg_data:/var/lib/postgresql
+
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+
+volumes:
+  target:
+  pg_data:
