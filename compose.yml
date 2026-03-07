@@ -10,6 +10,7 @@ services:
       DATABASE_URL: "postgres://user:password@db:5432/osso"
       REDIS_URL: "redis://redis:6379"
       RUST_LOG: "osso=debug,tower_http=debug"
+      HASH_SECRET: "generate_a_secret_key_here"
     volumes:
       - .:/app
       - target:/app/target
@@ -25,6 +26,14 @@ services:
       POSTGRES_DB: osso
     volumes:
       - pg_data:/var/lib/postgresql
+
+  adminer:
+    image: adminer:latest
+    restart: always
+    ports:
+      - "8000:8080"
+    depends_on:
+      - db
 
 
   redis:
