@@ -63,6 +63,13 @@ impl User {
         Ok(user)
     }
 
+    pub async fn find_by_id(id: Uuid, pool: &PgPool) -> Result<Option<Self>, Error> {
+        let user = sqlx::query_as!(User, "SELECT id, email, password_hash, created_at as \"created_at!\", updated_at FROM users WHERE id = $1", id)
+            .fetch_optional(pool)
+            .await?;
+        Ok(user)
+    }
+
     pub fn verify_password(&self, password: &str) -> Result<(), Error> {
         verify(password, &self.password_hash)?;
         Ok(())

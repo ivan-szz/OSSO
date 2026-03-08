@@ -11,6 +11,7 @@ services:
       REDIS_URL: "redis://redis:6379"
       RUST_LOG: "osso=debug,tower_http=debug"
       HASH_SECRET: "generate_a_secret_key_here"
+      JWT_SECRET: "generate_a_secret_key_here"
     volumes:
       - .:/app
       - target:/app/target

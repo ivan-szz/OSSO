@@ -1,7 +1,7 @@
-use crate::api::auth::{login, register};
+use crate::api::auth;
 use crate::app::AppState;
 use axum::Router;
-use axum::routing::{get, post};
+use axum::routing::get;
 
 pub fn routes<T>() -> Router<AppState>
 where
@@ -9,8 +9,7 @@ where
 {
     Router::new()
         .route("/", get(root))
-        .route("/register", post(register))
-        .route("/login", post(login))
+        .nest("/auth", auth::routes())
 }
 
 async fn root() -> &'static str {
