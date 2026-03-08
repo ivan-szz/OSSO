@@ -1,19 +1,15 @@
 use crate::api::auth;
-use crate::app::AppState;
 use axum::Router;
 use axum::routing::get;
+use crate::AppState;
 
 fn api_routes() -> Router<AppState> {
-    Router::new()
-        .nest("/auth", auth::routes())
+    Router::new().nest("/auth", auth::routes())
 }
 
-pub fn routes<T>() -> Router<AppState>
-where
-    T: Clone + Send + Sync + 'static,
-{
+pub fn routes() -> Router<AppState> {
     Router::new()
-        .route("/", get(root))
+        .route("/api/healthcheck", get(root))
         .nest("/api", api_routes())
 }
 

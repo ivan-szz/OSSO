@@ -7,6 +7,7 @@ services:
     ports:
       - "8080:8080"
     environment:
+      LEPTOS_SITE_ADDR: "0.0.0.0:8080"
       DATABASE_URL: "postgres://user:password@db:5432/osso"
       REDIS_URL: "redis://redis:6379"
       RUST_LOG: "osso=debug,tower_http=debug"
@@ -15,7 +16,7 @@ services:
     volumes:
       - .:/app
       - target:/app/target
-    command: cargo watch -w src -x run
+    command: cargo leptos watch --hot-reload
 
   db:
     image: postgres:18.1

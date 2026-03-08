@@ -1,8 +1,10 @@
 #stage 1
 FROM rust:1.91 as builder
 WORKDIR /app
+RUN rustup target add wasm32-unknown-unknown
+RUN cargo install cargo-leptos
 COPY . .
-RUN cargo build --release
+RUN cargo leptos build --release
 
 
 #stage 2
