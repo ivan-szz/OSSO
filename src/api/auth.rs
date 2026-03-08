@@ -9,6 +9,9 @@ use axum::http::StatusCode;
 use axum::response::{IntoResponse, Response};
 use axum::routing::post;
 use axum::{Json, Router};
+use axum_extra::TypedHeader;
+use headers::Authorization;
+use headers::authorization::Bearer;
 use redis::AsyncTypedCommands;
 use serde_json::json;
 use thiserror::Error;
@@ -20,6 +23,7 @@ pub fn routes() -> Router<AppState> {
         .route("/register", post(register))
         .route("/login", post(login))
         .route("/refresh", post(refresh))
+        .route("/logout", post(logout))
 }
 
 #[derive(Debug, Error)]
@@ -54,6 +58,7 @@ impl IntoResponse for AuthError {
                     .map(|key| match key.as_ref() {
                         "email" => "Invalid email format",
                         "password" => "Invalid password format: it must be 8 to 32 characters long",
+                        "refresh_token" => "Invalid refresh token format",
                         _ => "Invalid field",
                     })
                     .collect::<Vec<_>>();
@@ -145,6 +150,37 @@ pub async fn login(
         StatusCode::OK,
         Json(json!({ "access_token": jwt, "refresh_token": refresh_token })),
     ))
+}
+
+pub async fn logout(
+    state: State<AppState>,
+    TypedHeader(auth): TypedHeader<Authorization<Bearer>>,
+    Json(refresh_token_schema): Json<RefreshTokenSchema>,
+) -> Result<impl IntoResponse, AuthError> {
+    refresh_token_schema.validate()?;
+    let AppState { redis, .. } = state.0;
+    let RefreshTokenSchema { refresh_token } = refresh_token_schema;
+    let redis_key = format!("osso:refresh_token:{}", refresh_token);
+    let mut con = redis.get_multiplexed_async_connection().await?;
+
+    let token = auth.token();
+    let claims = jwt::verify(token)?;
+
+    let token_record = con
+        .get(&redis_key)
+        .await?
+        .ok_or(AuthError::InvalidCredentials)?;
+
+    if token_record != claims.sub.to_string() {
+        return Err(AuthError::InvalidCredentials);
+    };
+
+    // TODO: Add a blacklist of logged out tokens using a jti
+
+    // TODO: Use redis transaction to avoid race conditions
+    con.del(&redis_key).await?;
+
+    Ok(StatusCode::NO_CONTENT)
 }
 
 pub async fn refresh(

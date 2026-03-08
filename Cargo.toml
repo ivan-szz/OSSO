@@ -20,3 +20,5 @@ argon2 = { version = "0.5.3", features = ["std"] }
 thiserror = "2.0.18"
 jsonwebtoken = { version = "10.3.0", features = ["rust_crypto"] }
 rand = "0.10.0"
+axum-extra = { version = "0.12.5", features = ["typed-header"] }
+headers = "0.4.1"
