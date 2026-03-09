@@ -1,0 +1,12 @@
+.form-container {
+  max-width: 576px;
+  padding: 0 20px;
+  width: 100%;
+
+  form {
+    width: 100%;
+    border-radius: var(--border-radius);
+    background: hsla(var(--primary-color) / 0.1);
+    padding: 12px;
+  }
+}

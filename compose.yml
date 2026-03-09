@@ -1,23 +1,4 @@
 services:
-  osso:
-    container_name: osso
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
-    ports:
-      - "8080:8080"
-    environment:
-      LEPTOS_SITE_ADDR: "0.0.0.0:8080"
-      DATABASE_URL: "postgres://user:password@db:5432/osso"
-      REDIS_URL: "redis://redis:6379"
-      RUST_LOG: "osso=debug,tower_http=debug"
-      HASH_SECRET: "generate_a_secret_key_here"
-      JWT_SECRET: "generate_a_secret_key_here"
-    volumes:
-      - .:/app
-      - target:/app/target
-    command: cargo leptos watch --hot-reload
-
   db:
     image: postgres:18.1
     ports:
@@ -36,7 +17,6 @@ services:
       - "8000:8080"
     depends_on:
       - db
-
 
   redis:
     image: redis:latest
