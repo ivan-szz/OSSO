@@ -8,5 +8,35 @@
     border-radius: var(--border-radius);
     background: hsla(var(--primary-color) / 0.1);
     padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
+
+  &.form-loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.6;
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: hsla(var(--background-color) / 0.3);
+      border-radius: var(--border-radius);
+      z-index: 1;
+    }
+  }
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.form-field-error {
+  font-size: 0.8rem;
+  color: hsla(var(--destructive-color) / 1);
+  margin-top: 0.125rem;
 }

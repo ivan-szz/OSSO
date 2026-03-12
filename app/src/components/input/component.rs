@@ -8,20 +8,22 @@ pub fn Input(
     #[prop(optional)] name: Option<&'static str>,
     #[prop(optional)] value: Option<String>,
     #[prop(optional)] disabled: Option<bool>,
-    #[prop(optional)] error: Option<bool>,
+    #[prop(optional, into)] error: MaybeProp<bool>,
     #[prop(optional)] class: Option<&'static str>,
     #[prop(optional)] on_input: Option<Box<dyn Fn(String) + 'static>>,
 ) -> impl IntoView {
     let input_type = input_type.unwrap_or("text");
     let disabled = disabled.unwrap_or(false);
-    let error = error.unwrap_or(false);
 
-    let classes = format!(
-        "input{}{} {}",
-        if error { " input-error" } else { "" },
-        if disabled { " disabled" } else { "" },
-        class.unwrap_or("")
-    );
+    let classes = move || {
+        let error = error.get().unwrap_or(false);
+        format!(
+            "input{}{} {}",
+            if error { " input-error" } else { "" },
+            if disabled { " disabled" } else { "" },
+            class.unwrap_or("")
+        )
+    };
 
     view! {
         <label class="input-wrapper">

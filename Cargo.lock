@@ -70,12 +70,16 @@ name = "app"
 version = "0.1.0"
 dependencies = [
  "cfg-if",
+ "gloo-net",
  "http",
  "leptos",
  "leptos_axum",
  "leptos_meta",
  "leptos_router",
+ "serde",
+ "serde_json",
  "thiserror 2.0.18",
+ "web-sys",
 ]
 
 [[package]]

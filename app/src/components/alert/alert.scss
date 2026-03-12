@@ -1,0 +1,47 @@
+.alert {
+  position: relative;
+  width: 100%;
+  border-radius: var(--border-radius);
+  border: 1px solid hsla(var(--border-color) / 1);
+  border-left: 4px solid;
+  padding: 1rem 1rem 1rem 1.25rem;
+  font-size: 0.875rem;
+
+  &.alert-default {
+    border-left-color: hsla(var(--muted-foreground-color) / 1);
+    color: hsla(var(--primary-color) / 1);
+  }
+
+  &.alert-destructive {
+    background-color: hsla(var(--destructive-color) / 0.08);
+    border-color: hsla(var(--destructive-color) / 0.2);
+    border-left-color: hsla(var(--destructive-color) / 1);
+    color: hsla(var(--destructive-color) / 1);
+  }
+
+  &.alert-warning {
+    background-color: hsla(var(--warning-color) / 0.08);
+    border-color: hsla(var(--warning-color) / 0.2);
+    border-left-color: hsla(var(--warning-color) / 1);
+    color: hsla(var(--warning-foreground-color) / 1);
+  }
+
+  &.alert-success {
+    background-color: hsla(var(--success-color) / 0.08);
+    border-color: hsla(var(--success-color) / 0.2);
+    border-left-color: hsla(var(--success-color) / 1);
+    color: hsla(var(--success-foreground-color) / 1);
+  }
+}
+
+.alert-title {
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  margin-bottom: 0.25rem;
+}
+
+.alert-description {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}

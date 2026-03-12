@@ -58,7 +58,7 @@ pub fn Button(
     let disabled = disabled.unwrap_or(false);
 
     let classes = format!(
-        "{} {} {}",
+        "btn {} {} {}",
         variant.classes(),
         size.classes(),
         class.unwrap_or("")

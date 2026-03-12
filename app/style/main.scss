@@ -1,6 +1,18 @@
 @use "../src/components/form/form";
 @use "../src/components/input/input";
 @use "../src/components/button/button";
+@use "../src/components/label/label";
+@use "../src/components/separator/separator";
+@use "../src/components/card/card";
+@use "../src/components/alert/alert";
+@use "../src/components/checkbox/checkbox";
+@use "../src/components/select/select";
+@use "../src/components/badge/badge";
+@use "../src/components/table/table";
+@use "../src/components/switch/switch";
+@use "../src/components/tabs/tabs";
+@use "../src/components/dialog/dialog";
+@use "../src/components/sidebar/sidebar";
 
 :root {
   --background-color: 173 43 4;
@@ -9,7 +21,7 @@
   --accent-color: 218 98 58;
   --primary-foreground-color: 173 43 4;
   --secondary-foreground-color: 169 64 94;
-  --accent-foreground-color: 173 43 4;
+  --accent-foreground-color: 0 0 100;
   --border-radius: 8px;
 
   --input-border: 0 0 90;
@@ -20,6 +32,25 @@
   --input-focus-ring: var(--accent-color);
 
   --destructive-color: 0 84 60;
+  --destructive-foreground-color: 0 0 100;
+
+  --muted-color: 173 25 10;
+  --muted-foreground-color: 169 20 65;
+  --card-color: 173 35 8;
+  --card-foreground-color: 169 64 94;
+  --border-color: 169 20 18;
+  --ring-color: var(--accent-color);
+  --popover-color: 173 35 12;
+  --popover-foreground-color: 169 64 94;
+  --warning-color: 38 92 50;
+  --warning-foreground-color: 38 92 75;
+  --success-color: 142 71 45;
+  --success-foreground-color: 142 71 75;
+  --border-radius-sm: 4px;
+  --border-radius-lg: 12px;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
 }
 
 * {
@@ -46,4 +77,55 @@ main {
   justify-content: center;
   height: 100vh;
   width: 100%;
+}
+
+// Showcase page layout
+.showcase {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+.showcase-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  letter-spacing: -0.025em;
+}
+
+.showcase-section {
+  margin-bottom: 2.5rem;
+
+  > h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid hsla(var(--border-color) / 1);
+  }
+}
+
+.showcase-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.showcase-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.showcase-inline {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }

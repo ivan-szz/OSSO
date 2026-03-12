@@ -14,9 +14,13 @@ leptos_axum = { workspace = true, optional = true }
 http.workspace = true
 cfg-if.workspace = true
 thiserror.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+gloo-net = { workspace = true, optional = true }
+web-sys = { workspace = true, optional = true }
 
 [features]
 default = []
-hydrate = ["leptos/hydrate"]
+hydrate = ["leptos/hydrate", "dep:gloo-net", "dep:web-sys"]
 ssr = ["leptos/ssr", "leptos_meta/ssr", "leptos_router/ssr", "dep:leptos_axum"]
 
