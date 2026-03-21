@@ -40,7 +40,7 @@ jsonwebtoken = { version = "10.3.0", features = ["rust_crypto"] }
 rand = "0.10.0"
 axum-extra = { version = "0.12.5", features = ["typed-header"] }
 headers = "0.4.1"
-gloo-net = "0.6.0"
+reqwest = { version = "0.12", features = ["json"] }
 web-sys = "0.3.91"
 
 # See https://github.com/leptos-rs/cargo-leptos for documentation of all the parameters.

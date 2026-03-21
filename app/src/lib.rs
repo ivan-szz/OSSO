@@ -1,5 +1,7 @@
 pub mod pages;
 pub mod components;
+pub mod pages;
+pub mod server;
 
 use crate::pages::login::Login;
 use leptos::prelude::*;

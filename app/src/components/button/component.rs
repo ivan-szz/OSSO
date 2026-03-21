@@ -47,15 +47,16 @@ impl ButtonSize {
 #[component]
 pub fn Button(
     children: Children,
+    #[prop(optional)] button_type: Option<&'static str>,
     #[prop(optional)] variant: Option<ButtonVariant>,
     #[prop(optional)] size: Option<ButtonSize>,
-    #[prop(optional)] disabled: Option<bool>,
+    #[prop(optional, into)] disabled: MaybeProp<bool>,
     #[prop(optional)] class: Option<&'static str>,
     #[prop(optional)] on_click: Option<Box<dyn Fn() + 'static>>,
 ) -> impl IntoView {
     let variant = variant.unwrap_or(ButtonVariant::Default);
     let size = size.unwrap_or(ButtonSize::Default);
-    let disabled = disabled.unwrap_or(false);
+    let disabled = move || disabled.get().unwrap_or(false);
 
     let classes = format!(
         "btn {} {} {}",
@@ -66,6 +67,7 @@ pub fn Button(
 
     view! {
         <button
+            type=button_type
             class=classes
             disabled=disabled
             on:click=move |_| {
